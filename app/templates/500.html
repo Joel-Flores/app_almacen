@@ -1,0 +1,7 @@
+{% extends './index.html' %}
+
+{% block title %} {{ super() }} 500  {%endblock%}
+{% block main %}
+    <h1>error en el servidor</h1>
+    <p> {{error}} </p>
+{% endblock %}
