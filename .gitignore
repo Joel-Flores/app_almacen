@@ -1,3 +1,4 @@
 env/
 __pycache__/
 config_flask.sh
+flask-test.sh

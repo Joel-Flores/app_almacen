@@ -1,10 +1,10 @@
 #importando dependencias
-import code
 from flask import Flask
 import os
 
 #importacion de blueprint
-'''from .zone import zone'''
+from .authentication import auth
+from .store import store
 
 #creacion de la app
 def create_app():
@@ -23,6 +23,7 @@ def create_app():
     db.init_app(app)
     
     #agregar el blueprint a la aplicacion
-    '''app.register_blueprint(zone)'''
+    app.register_blueprint(auth)
+    app.register_blueprint(store)
     
     return app
