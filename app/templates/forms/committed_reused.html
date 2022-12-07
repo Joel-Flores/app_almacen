@@ -1,0 +1,16 @@
+{% extends './main.html' %}
+{% block title %}{{ super() }}{{response_js.dateils_from.code}}{%endblock%}
+{% block article %}
+    <form action="/code/upload_committed/{{response_js.dateils_from.id}}" method="POST" class="row g-5">
+        <section class="col-auto">
+            <h2>{{response_js.dateils_from.code}}</h2>
+        </section>
+        <section class="col-auto">
+          <label for="inputPassword2" class="visually-hidden">new code</label>
+          <input type="number" name="new_code" required class="form-control" id="inputPassword2" placeholder="Nuevo codigo">
+        </section>
+        <section class="col-auto">
+          <button type="submit" class="btn btn-dark mb-3">Upload code</button>
+        </section>
+      </form>
+{% endblock %}

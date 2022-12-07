@@ -1,0 +1,15 @@
+{% extends './base.html' %}
+{% import 'macros.html' as macros %}
+
+{% block title%}{{ super() }}{% endblock %}
+
+{% block body%}
+    {% include 'header.html' %}
+    <br>
+    <main class="container-fluid row">
+        {% block main %}
+        
+        {% endblock %}
+    </main>
+    {% include 'footer.html' %}
+{% endblock %}
