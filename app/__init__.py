@@ -4,7 +4,7 @@ import os
 
 #importacion de blueprint
 from .authentication import auth
-from .store import store
+from .technical import tech
 
 #creacion de la app
 def create_app():
@@ -24,6 +24,6 @@ def create_app():
     
     #agregar el blueprint a la aplicacion
     app.register_blueprint(auth)
-    app.register_blueprint(store)
+    app.register_blueprint(tech)
     
     return app
