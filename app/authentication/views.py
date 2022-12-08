@@ -70,7 +70,7 @@ def load_logged_in_user():
         db, c = get_db()
         query = 'SELECT * FROM user WHERE id = %s'
         c.execute(query,[user_id])
-        g.user = c.fetchone
+        g.user = c.fetchone()
     
 def login_required(view):
     @functools.wraps(view)
