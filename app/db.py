@@ -55,6 +55,10 @@ def init_load():
         query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s,%s)'
         c.execute(query,[instruction,3])
     db.commit()
+    for instruction in insert.positions:
+        query = 'INSERT INTO positions (position) VALUES(%s)'
+        c.execute(query,[instruction])
+    db.commit()
 
 
 #declarando nuevo comando para flask
