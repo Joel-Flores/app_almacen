@@ -1,8 +1,12 @@
+staff = [
+    ['joel','jorge','flores','fernandez']
+]
 equipment=[
     'verimatrix',
     'arris',
     'hitron',
 ]
+positions = ['tecnico','almacen','aux_almacen']
 vm=[
     "7360575882",
     "7362806071",
@@ -69,3 +73,16 @@ arris = [
     "F82DC03BAF17",
     "948FCFD93462"
     ]
+material = [
+    [20,15,6,6,35,50,50,58,5,305,305],
+    [3,0,2,1,3,14,1,4,1,20,25]
+]
+code = [
+    [113862]
+]
+work_order = [
+    [10203516,36,2],
+    [10203528,1,0],
+    [10203474,2,0],
+    [10203475,3,0]
+]
