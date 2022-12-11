@@ -2,7 +2,6 @@
 
 {% block title %} {{ super() }} Login {%endblock%}
 {% block main %}
-    <p>funcion de auth con ip: {{user_ip}} </p>
     <h1>Iniciar session</h1>
     <form action="/auth/login" method="POST">
         <div class="row mb-3">
