@@ -3,6 +3,7 @@ import mysql.connector
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+from werkzeug.security import generate_password_hash
 
 #importando instruciones para la base de datos
 from app.schema import instrutions
@@ -43,24 +44,62 @@ def init_load():
         query = 'INSERT INTO equipment (name) VALUES(%s)'
         c.execute(query,[instruction])
     db.commit()
+    
     for instruction in insert.vm:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s,%s)'
+        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
         c.execute(query,[instruction,1])
     db.commit()
+    
     for instruction in insert.arris:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s,%s)'
+        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
         c.execute(query,[instruction,2])
     db.commit()
+    
     for instruction in insert.hitron:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s,%s)'
+        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
         c.execute(query,[instruction,3])
     db.commit()
+    
     for instruction in insert.positions:
         query = 'INSERT INTO positions (position) VALUES(%s)'
         c.execute(query,[instruction])
     db.commit()
-
-
+    
+    for instruction in insert.staff:
+        query = 'INSERT INTO staff (user_name, user_name_two, user_lastname, user_lastname_two, positions_id) VALUES(%s, %s, %s, %s, %s)'
+        c.execute(query,instruction)
+    db.commit()
+    
+    query = 'INSERT INTO user(nickname, password) VALUES (%s, %s)'
+    password = 'joe'
+    c.execute(query,['joe',generate_password_hash(password)])
+    db.commit()
+    
+    query = 'INSERT INTO user_staff(user_id, staff_id) VALUES (%s, %s)'
+    c.execute(query,[1,1])
+    db.commit()
+    
+    for instruction in insert.material:
+        query = 'INSERT INTO materials (cable_hdmi, cable_rca, spliter_two, spliter_three, remote_control, connector_int, connector_ext, power_supply, q_span, cp_black, sp_black, sp_withe) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        c.execute(query,instruction)
+    db.commit()
+    
+    query = 'INSERT INTO technical_material(technical_id, materials_id) VALUES (%s, %s)'
+    c.execute(query,[1,2])
+    db.commit()
+    
+    c.execute('SELECT id FROM serials')
+    data = c.fetchall()
+    for instruction in data:
+        query = 'INSERT INTO technical_serial (technical_id, serials_id) VALUES(%s, %s)'
+        c.execute(query,[1 ,instruction['id']])
+    db.commit()
+    
+    for instruction in insert.type_works:
+        query = 'INSERT INTO type_works(type_work) VALUES(%s)'
+        c.execute(query, [instruction])
+    db.commit()
+    
 #declarando nuevo comando para flask
 @click.command(name = 'init-db')
 @with_appcontext    

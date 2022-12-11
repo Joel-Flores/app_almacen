@@ -13,11 +13,14 @@ from app.db import get_db
 def register():
     if request.method == 'POST':
         db, c = get_db()
+        
         username = request.form['username']
         password = request.form['password']
+        
         error = None
-        query = 'SELECT id FROM user WHERE username = %s'
+        query = 'SELECT id FROM user WHERE nickname = %s'
         c.execute(query,[username])
+        
         if not username:
             error = 'usuario es requerido'
         elif not password:
@@ -26,27 +29,30 @@ def register():
             error = f'usuario {username} se encuentra registrado'
 
         if error is None:
-            query = 'INSERT INTO user (username, password) VALUES (%s,%s)'
+            query = 'INSERT INTO user (nickname, password) VALUES (%s,%s)'
             password = generate_password_hash(password)
-            print(password)
             c.execute(query,[username,password])
             db.commit()
+            
             return redirect(url_for('auth.login'))
+        
         flash(error)
     
-    user_ip = session.get('user_ip')
     return render_template('auth/register.html', user_ip = user_ip)
     
 @auth.route('/login', methods = ['GET','POST'])
 def login():
     if request.method == 'POST':
         db, c = get_db()
+        
         username = request.form['username']
         password = request.form['password']
         error = None
-        query = 'SELECT * FROM user WHERE username = %s'
+        
+        query = 'SELECT * FROM user WHERE nickname = %s'
         c.execute(query,[username])
         user = c.fetchone()
+        
         if user is None:
             error = 'Usuario y/o Contraseña invalida'
         elif not check_password_hash(user['password'],password):
@@ -55,10 +61,15 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('store.index'))
+            return redirect(url_for('tech.index'))
         flash(error)
         
     return render_template('auth/login.html')
+
+@auth.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('auth.login'))
 
 @auth.before_app_request
 def load_logged_in_user():

@@ -1,0 +1,25 @@
+{% extends './tech/index.html' %}
+
+{% block title %} {{ super() }} Nueva Orden {%endblock%}
+{% block section %}
+    <h1>FORMULARIO DE ORDEN PARA {{ code }}</h1>
+    <form action="/tech/new_order" method="POST" class="row g-3">
+        {% for ot in ots %}
+        <div class="form-floating col-6">
+            <input type="number" name="{{ot.order}}" class="form-control" id="floatingInput">
+            <label for="floatingInput">Ingresa nueva orden</label>
+        </div>
+        <div class="form-floating col-6">
+            <select name="{{ot.serial}}" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+              <option selected>Selecciona serie</option>
+              {{macros.render_serial(serials)}}
+            </select>
+            <label for="floatingSelect">Equipos Disponibles</label>
+        </div>
+        {% endfor%}
+        
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

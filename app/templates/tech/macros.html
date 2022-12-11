@@ -1,0 +1,31 @@
+{% macro render_type_works(type_work)%}
+    <option value="{{type_work.id}}">{{type_work.type_work}}</option>
+{% endmacro%}
+
+{% macro render_code_details(code_details)%}
+    <tr>
+        <th>{{ code_details.code }}</th>
+        <td>{{ code_details.type_work }}</td>
+        <td>{{ code_details.create_at }}</td>
+    </tr>
+{% endmacro%}
+
+{% macro render_materials(name,material)%}
+    <tr>
+        <th>{{ name.capitalize() }}</th>
+        <td>{{ material }}</td>
+    </tr>
+{% endmacro%}
+
+{% macro render_equipment(equipment)%}
+    <tr>
+        <th>{{ equipment.name.capitalize() }}</th>
+        <td>{{ equipment.caunt }}</td>
+    </tr>
+{% endmacro%}
+
+{% macro render_serial(serials)%}
+    {% for serial in serials %}
+    <option value="{{ serial.id }}">{{ serial.cm_mac }}</option>
+    {% endfor %}
+{% endmacro%}
