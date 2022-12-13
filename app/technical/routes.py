@@ -8,6 +8,7 @@ from .works_form import works_form
 from .materials_form import materials_form
 from .retired_claim_team import retired_claim_team
 from .updt_serial_tech import updt_serial_tech
+from .removal_order import removal_order
 
 #importacion de frameworks
 from flask import render_template, redirect, url_for, flash, g, session
@@ -25,22 +26,29 @@ def before_request():
     g.equipments =  session.get('equipment')
     g.equipments_all = session.get('equipments_all')
     g.code_for_retired = session.get('code_for_retired')
+
+#vista general para el tecnico
 @tech.route('/')
 def index():
     json = data_type_works()
     return render_template('tech/index.html', **json)
 
+#rutas para instalacion, reclamos, retiros; registro de codigos
 @tech.route('/new_code', methods = ['POST'])
 def new_code():
-    json = dict()
-    json = code_entry(json)
+    json, message, error = code_entry()
+    flash(message)
+    if error is True:
+        return render_template('tech/withdrawal_form.html', **json)
     return render_template('tech/form_work_order.html', **json)
-
+#agregar orden de trabajo instalacion y reclamos
 @tech.route('/new_order', methods = ['POST'])
 def new_order():
-    works_form()
+    message = works_form()
+    flash(message)
     return render_template('tech/complete_materials_the_code.html')
 
+#actualizar materiales de la ot y del tecnico
 @tech.route('/material_code', methods = ['POST'])
 def material_code():
     message = materials_form()
@@ -51,6 +59,7 @@ def material_code():
     data_technical()
     return redirect(url_for('tech.index'))
 
+#registro de equipo retirado de reclamos
 @tech.route('/new_serial', methods = ['POST'])
 def new_serial():
     json = retired_claim_team()
@@ -59,8 +68,16 @@ def new_serial():
         return redirect(url_for('tech.index'))
     return render_template('tech/form_new_serial.html', **json)
 
+#agregando datos al equipo subido y (cortejando a la ot)pendiente
 @tech.route('/update_serial_tech', methods = ['POST'])
 def update_serial_tech():
     message = updt_serial_tech()
     flash(message)
     return redirect(url_for('tech.index'))
+
+#agregar orden de trabajo para retiros
+@tech.route('/removal_orders', methods = ['POST'])
+def removal_orders():
+    message = removal_order()
+    flash(message)
+    return render_template('tech/complete_materials_the_code.html')

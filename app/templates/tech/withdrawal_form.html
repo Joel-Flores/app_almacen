@@ -1,0 +1,31 @@
+{% extends './tech/index.html' %}
+
+{% block title %} {{ super() }} Nueva Orden {%endblock%}
+{% block section %}
+    <h1>FORMULARIO DE ORDEN PARA {{ code }}</h1>
+    <form action="/tech/removal_orders" method="POST" class="row g-3">
+        {% for ot in ots %}
+        <h3>Ingrese ot y Equipo.</h3>
+        <div class="form-floating col-sm-12 col-md-4">
+            <input type="number" name="{{ot.order}}" class="form-control" id="floatingInput">
+            <label for="floatingInput">Ingresa nueva orden</label>
+        </div>
+        <div class="form-floating mb-3 col-sm-12 col-md-4">
+            <input type="text" name="{{ot.serial}}" class="form-control" id="floatingInput">
+            <label for="floatingInput">Serie del equipo</label>
+        </div>
+        <div class="form-floating col-sm-12 col-md-4">
+            <select name="{{ot.equipment_id}}" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+              <option selected>Selecciona modelo</option>
+              {% for equipment in g.equipments_all %}
+              {{macros.render_equipment_option(equipment)}}
+              {% endfor %}
+            </select>
+            <label for="floatingSelect">Tipo de equipo</label>
+        </div>
+        {% endfor%}
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

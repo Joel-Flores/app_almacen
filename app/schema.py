@@ -2,11 +2,11 @@ instrutions = [
     "DROP TABLE IF EXISTS user_staff;",
     "DROP TABLE IF EXISTS technical_material;",
     "DROP TABLE IF EXISTS technical_serial;",
+    "DROP TABLE IF EXISTS serials_tech;",
     "DROP TABLE IF EXISTS code_works;",
     "DROP TABLE IF EXISTS staff;",
     "DROP TABLE IF EXISTS work_orders;",
     "DROP TABLE IF EXISTS serials;",
-    "DROP TABLE IF EXISTS serials_tech;",
     "DROP TABLE IF EXISTS materials;",
     "DROP TABLE IF EXISTS codes;",
     "DROP TABLE IF EXISTS user;",
@@ -126,6 +126,7 @@ instrutions = [
         card_number INT NOT NULL DEFAULT 0,
         equipment_id INT NOT NULL,
         code_id BIGINT NOT NULL,
+        work_orders_id BIGINT NOT NULL,
         user_id INT NOT NULL,
         created_in TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
@@ -225,5 +226,10 @@ instrutions = [
         ADD CONSTRAINT
         serials_tech_code_id_code_id FOREIGN KEY(code_id)
         REFERENCES codes(id);
+    """,
+    """ALTER TABLE serials_tech
+        ADD CONSTRAINT
+        serials_tech_work_orders_id_work_orders_id FOREIGN KEY(work_orders_id)
+        REFERENCES work_orders(id);
     """
 ]

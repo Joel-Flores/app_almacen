@@ -8,16 +8,18 @@ def _code_entry(code, type_works_id):
     query = 'SELECT code FROM codes WHERE code = %s'
     c.execute(query, [code])
     
-    if c.fetchone() is not None:
-        return 'Codigo ya registrado, ingrese nuevas orden(es) de trabajo.'
+    if c.fetchone() is None:
+        query = 'INSERT INTO codes(code, type_works_id, technical_id) VALUES (%s, %s, %s)'
+        c.execute(query,[code, type_works_id, g.user['id']])
+        db.commit()
     
-    query = 'INSERT INTO codes(code, type_works_id, technical_id) VALUES (%s, %s, %s)'
-    c.execute(query,[code, type_works_id, g.user['id']])
-    db.commit()
-    return 'Nuevo codigo registrado, ingrese nueva(s) orden(es) de trabajo'
+    if int(type_works_id) == 13:
+        return 'Nuevo codigo registrado, ingrese nueva(s) orden(es) y equipos retirados', True
+    return 'Nuevo codigo registrado, ingrese nueva(s) orden(es) de trabajo', False
 
-
-def code_entry(json):
+#manejador de las funciones
+def code_entry():
+    json = dict()
     code = int(request.form['new_code'])
     type_works_id = int(request.form['type_works_id'])
     
@@ -26,14 +28,13 @@ def code_entry(json):
     
     json['code'] = code
     json['ots'] = [
-        {'order' : 'order_one','serial' : 'serial_one'},
-        {'order' : 'order_two','serial' : 'serial_two'},
-        {'order' : 'order_three','serial' : 'serial_three'},
-        {'order' : 'order_four','serial' : 'serial_four'},
-        {'order' : 'order_five','serial' : 'serial_five'},
-        {'order' : 'order_six','serial' : 'serial_six'}
+        {'order' : 'order_one','serial' : 'serial_one', 'equipment_id':'equipment_id_one'},
+        {'order' : 'order_two','serial' : 'serial_two', 'equipment_id':'equipment_id_two'},
+        {'order' : 'order_three','serial' : 'serial_three', 'equipment_id':'equipment_id_three'},
+        {'order' : 'order_four','serial' : 'serial_four', 'equipment_id':'equipment_id_four'},
+        {'order' : 'order_five','serial' : 'serial_five', 'equipment_id':'equipment_id_five'},
+        {'order' : 'order_six','serial' : 'serial_six', 'equipment_id':'equipment_id_six'}
     ]
     
-    message = _code_entry(code,type_works_id)
-    flash(message)
-    return json
+    message, error = _code_entry(code,type_works_id)
+    return json, message, error
