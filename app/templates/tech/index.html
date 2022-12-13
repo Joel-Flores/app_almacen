@@ -1,7 +1,7 @@
 {% extends './base.html' %}
 {% import 'tech/macros.html' as macros %}
 
-{% block title%}{{ super() }} {{username.position.capitalize()}}{% endblock %}
+{% block title%}{{ super() }} {{g.username.position.capitalize()}}{% endblock %}
 
 {% block body %}
     {% include 'tech/header.html' %}
@@ -10,6 +10,7 @@
             {% block section %}
             {% include 'tech/input_code.html' %}
             {% include 'tech/code_list.html' %}
+            {% include 'tech/retired_claim_team.html'%}
             {% endblock %}
         </section>
         <section class="col-xs-12 col-sm-4 col-lg-auto">

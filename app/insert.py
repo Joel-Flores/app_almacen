@@ -8,6 +8,7 @@ equipment=[
 ]
 positions = ['tecnico','almacen','aux_almacen']
 vm=[
+    'sin codigo',
     "7360575882",
     "7362806071",
     "7363388434",

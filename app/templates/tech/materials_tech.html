@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for key, values in materials.items() %}
+    {% for key, values in g.materials.items() %}
     {{macros.render_materials(key, values)}}
     {% endfor %}
   </tbody>

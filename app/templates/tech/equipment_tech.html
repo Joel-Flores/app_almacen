@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for equipment in equipments %}
+    {% for equipment in g.equipments %}
     {{macros.render_equipment(equipment)}}
     {% endfor %}
   </tbody>

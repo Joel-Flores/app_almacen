@@ -1,4 +1,4 @@
-from flask import request, redirect, url_for
+from flask import request
 from werkzeug.security import generate_password_hash
 
 from app.db import get_db
@@ -22,11 +22,11 @@ def new_user():
         error = f'usuario {username} se encuentra registrado'
 
     if error is None:
-        query = 'INSERT INTO user (nickname, password) VALUES (%s,%s)'
+        query = 'INSERT INTO user (nickname, password, active) VALUES (%s,%s, %s)'
         password = generate_password_hash(password)
-        c.execute(query,[username,password])
+        c.execute(query,[username,password,1])
         db.commit()
             
-        return redirect(url_for('auth.login'))
+        return 'Registrado Exitosamente'
     
     return error

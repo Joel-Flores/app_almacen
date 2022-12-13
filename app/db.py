@@ -45,19 +45,24 @@ def init_load():
         c.execute(query,[instruction])
     db.commit()
     
+    query = 'INSERT INTO user(nickname, password, active) VALUES (%s, %s, %s)'
+    password = 'joe'
+    c.execute(query,['joe',generate_password_hash(password),1])
+    db.commit()
+   
     for instruction in insert.vm:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
-        c.execute(query,[instruction,1])
+        query = 'INSERT INTO serials (cm_mac,equipment_id, user_id) VALUES(%s, %s, %s)'
+        c.execute(query,[instruction,1,1])
     db.commit()
     
     for instruction in insert.arris:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
-        c.execute(query,[instruction,2])
+        query = 'INSERT INTO serials (cm_mac,equipment_id, user_id) VALUES(%s, %s, %s)'
+        c.execute(query,[instruction, 2, 1])
     db.commit()
     
     for instruction in insert.hitron:
-        query = 'INSERT INTO serials (cm_mac,equipment_id) VALUES(%s, %s)'
-        c.execute(query,[instruction,3])
+        query = 'INSERT INTO serials (cm_mac,equipment_id, user_id) VALUES(%s, %s, %s)'
+        c.execute(query,[instruction, 3, 1])
     db.commit()
     
     for instruction in insert.positions:
@@ -70,17 +75,13 @@ def init_load():
         c.execute(query,instruction)
     db.commit()
     
-    query = 'INSERT INTO user(nickname, password) VALUES (%s, %s)'
-    password = 'joe'
-    c.execute(query,['joe',generate_password_hash(password)])
-    db.commit()
-    
     query = 'INSERT INTO user_staff(user_id, staff_id) VALUES (%s, %s)'
     c.execute(query,[1,1])
     db.commit()
     
     for instruction in insert.material:
-        query = 'INSERT INTO materials (cable_hdmi, cable_rca, spliter_two, spliter_three, remote_control, connector_int, connector_ext, power_supply, q_span, cp_black, sp_black, sp_withe) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        instruction.append(1)
+        query = 'INSERT INTO materials (cable_hdmi, cable_rca, spliter_two, spliter_three, remote_control, connector_int, connector_ext, power_supply, q_span, cp_black, sp_black, sp_withe, user_id) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
         c.execute(query,instruction)
     db.commit()
     

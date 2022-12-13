@@ -2,11 +2,17 @@
     <option value="{{type_work.id}}">{{type_work.type_work}}</option>
 {% endmacro%}
 
+{% macro render_equipment_option(equipment)%}
+    <option value="{{ equipment.id }}">{{ equipment.name.capitalize() }}</option>
+{% endmacro%}
+
 {% macro render_code_details(code_details)%}
     <tr>
         <th>{{ code_details.code }}</th>
         <td>{{ code_details.type_work }}</td>
-        <td>{{ code_details.create_at }}</td>
+        <td>{{ code_details.ots }}</td>
+        <td>{{ code_details.created_in}}</td>
+        <td><a class="btn btn-light" href="details/{{code_details.code}}">details</a></td>
     </tr>
 {% endmacro%}
 
@@ -28,4 +34,8 @@
     {% for serial in serials %}
     <option value="{{ serial.id }}">{{ serial.cm_mac }}</option>
     {% endfor %}
+{% endmacro%}
+
+{% macro render_codes_for_serial(code)%}
+    <option value="{{ code.id }}">{{ code.code }}</option>
 {% endmacro%}

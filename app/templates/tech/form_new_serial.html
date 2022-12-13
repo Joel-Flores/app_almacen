@@ -1,0 +1,20 @@
+{% extends './tech/index.html' %}
+
+{% block title %} {{ super() }} Equipo retirado {%endblock%}
+{% block section %}
+    <h1>Complete datos del Equipo: {{new_serial}}</h1>
+    <form action="/tech/update_serial_tech" method="POST" class="row g-3">
+        <div class="col-md-6">
+            <label for="inputCity" class="form-label">CM - MAC 2</label>
+            <input type="text" name="cm_mac_two" class="form-control" id="inputCity" >
+        </div>
+        <div class="col-md-6">
+            <label for="inputCity" class="form-label">TARJETA</label>
+            <input type="number" name="card_number" class="form-control" id="inputCity">
+        </div>
+        
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

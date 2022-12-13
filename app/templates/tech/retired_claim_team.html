@@ -1,0 +1,31 @@
+<h2 class="p-2 m-2">equipo retirado de reclamo</h2>
+<form class="p-2 m-2" action="/tech/new_serial" method="POST">
+  <div class="row">
+    <div class="form-floating mb-3 col-6">
+      <input type="text" name="new_serial" class="form-control" id="floatingInput">
+      <label for="floatingInput">Serie del equipo</label>
+    </div>
+    <div class="form-floating col-6">
+      <select name="equipment_id" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+        <option selected>Selecciona modelo</option>
+        {% for equipment in g.equipments_all %}
+        {{macros.render_equipment_option(equipment)}}
+        {% endfor %}
+      </select>
+      <label for="floatingSelect">Tipo de equipo</label>
+    </div>
+    <div class="form-floating col-md-6">
+      <select name="code_id" class="form-select" id="floatingSelect" aria-label="Floating label select example">
+          <option selected>Codigo</option>
+          {% for code_for_serial in g.code_for_retired %}
+          {{macros.render_codes_for_serial(code_for_serial)}}
+          {% endfor %}
+      </select>
+      <label for="floatingSelect">del retiro</label>
+  </div>
+  
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button type="submit" class="btn btn-outline-dark btn-lg">Guardar</button>
+    </div>
+  </div>
+</form>
