@@ -4,10 +4,12 @@ from flask import g
 from app.db import get_db
 
 # lista de los trabajos a realizar por el tecnico
-def data_type_works(json):
+def data_type_works():
+    json = dict()
     db, c = get_db()
     c.execute('SELECT id, type_work FROM type_works')
     json['type_works'] = c.fetchall()
+    json = code_list(json)
     return json
 
 #lista de codigos ejecutados por el tecnico

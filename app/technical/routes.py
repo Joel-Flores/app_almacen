@@ -27,9 +27,7 @@ def before_request():
     g.code_for_retired = session.get('code_for_retired')
 @tech.route('/')
 def index():
-    json = dict()
-    json = data_type_works(json)
-    json = code_list(json)
+    json = data_type_works()
     return render_template('tech/index.html', **json)
 
 @tech.route('/new_code', methods = ['POST'])
