@@ -56,6 +56,9 @@ def material_code():
 @tech.route('/new_serial', methods = ['POST'])
 def new_serial():
     json = retired_claim_team()
+    if json == 'codigo ya registrado':
+        flash(json)
+        return redirect(url_for('tech.index'))
     return render_template('tech/form_new_serial.html', **json)
 
 @tech.route('/update_serial_tech', methods = ['POST'])
