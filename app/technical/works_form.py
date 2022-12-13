@@ -7,6 +7,7 @@ def form_works():
     query = 'SELECT id FROM codes WHERE code = %s'
     c.execute(query,[session.get('code')])
     session['code'] = c.fetchone()
+    
     try:
         form = dict()
         order = list()
@@ -66,9 +67,9 @@ def form_works():
     
     
 def confirm_order_(orders):
-    db, c = get_db()
-
     error = None
+    
+    db, c = get_db()
     query = 'SELECT work_order FROM work_orders WHERE work_order = %s AND technical_id = %s'
     
     for order in orders:
@@ -106,11 +107,17 @@ def update_work(form):
 
 #eliminar los equipos usados en la tabla de technical_serial
 def update_tech_equip(serials_id):
+    error = False
     db, c = get_db()
     query = 'DELETE FROM technical_serial WHERE serials_id = %s AND technical_id = %s'
+    
     for id in serials_id:
-        c.execute(query,[id, g.user['id']])
-    db.commit()
+        if int(id) == 1:
+            error = True
+            c.execute(query,[id, g.user['id']])
+    
+    if error is False:
+        db.commit()
 
 
 def update_work_order(orders):
