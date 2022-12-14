@@ -3,10 +3,6 @@ from app.db import get_db
 
 # controlar el formulario
 def form_works():
-    db, c = get_db()
-    query = 'SELECT id FROM codes WHERE code = %s'
-    c.execute(query,[session.get('code')])
-    session['code'] = c.fetchone()
     try:
         form = dict()
         order = list()

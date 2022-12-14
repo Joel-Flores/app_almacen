@@ -39,14 +39,14 @@ def new_code():
     json, message, error = code_entry()
     flash(message)
     if error is True:
-        return render_template('tech/withdrawal_form.html', **json)
-    return render_template('tech/form_work_order.html', **json)
+        return render_template('tech/withdrawal_record/withdrawal_form.html', **json)
+    return render_template('tech/registration_of_installations_and_claims/form_work_order.html', **json)
 #agregar orden de trabajo instalacion y reclamos
 @tech.route('/new_order', methods = ['POST'])
 def new_order():
     message = works_form()
     flash(message)
-    return render_template('tech/complete_materials_the_code.html')
+    return render_template('tech/registration_of_installations_and_claims/complete_materials_the_code.html')
 
 #actualizar materiales de la ot y del tecnico
 @tech.route('/material_code', methods = ['POST'])
@@ -66,7 +66,7 @@ def new_serial():
     if json == 'codigo ya registrado':
         flash(json)
         return redirect(url_for('tech.index'))
-    return render_template('tech/form_new_serial.html', **json)
+    return render_template('tech/withdrawal_record/form_new_serial.html', **json)
 
 #agregando datos al equipo subido y (cortejando a la ot)pendiente
 @tech.route('/update_serial_tech', methods = ['POST'])
@@ -80,4 +80,4 @@ def update_serial_tech():
 def removal_orders():
     message = removal_order()
     flash(message)
-    return render_template('tech/complete_materials_the_code.html')
+    return render_template('tech/withdrawal_record/complete_materials_the_code.html')

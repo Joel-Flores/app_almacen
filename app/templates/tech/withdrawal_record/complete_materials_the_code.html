@@ -1,0 +1,67 @@
+{% extends './tech/index.html' %}
+
+{% block title %} {{ super() }} Material del codigo {%endblock%}
+{% block section %}
+    <h1>Ingrese material.</h1>
+    <form action="/tech/material_code" method="POST" class="row g-3">
+        <div class="col-md-4">
+            <label for="inputCity" class="form-label">Hdmi</label>
+            <input type="number" name="cable_hdmi" class="form-control" id="inputCity" >
+        </div>
+        <div class="col-md-4">
+            <label for="inputCity" class="form-label">Rca</label>
+            <input type="number" name="cable_rca" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputCity" class="form-label">Spliter 2</label>
+            <input type="number" name="spliter_two" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputCity" class="form-label">Spliter 3</label>
+            <input type="number" name="spliter_three" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputZip" class="form-label">Conrtol remoto</label>
+            <input type="number" name="remote_control" class="form-control" id="inputZip">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Conector int</label>
+            <input type="number" name="connector_int" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Conector ext</label>
+            <input type="number" name="connector_ext" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Fuente de poder</label>
+            <input type="number" name="power_supply" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">Q-pan</label>
+            <input type="number" name="q_span" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputZip" class="form-label">Cable C/P negro</label>
+            <input type="number" name="cp_black" class="form-control" id="inputZip">
+        </div>
+        <div class="col-md-4">
+            <label for="inputZip" class="form-label">Cable S/P negro</label>
+            <input type="number" name="sp_black" class="form-control" id="inputZip">
+        </div>
+        <div class="col-md-4">
+            <label for="inputZip" class="form-label">Cable S/P blanco</label>
+            <input type="number" name="sp_withe" class="form-control" id="inputZip">
+        </div>
+        <div class="col-md-4">
+            <label for="inputCity" class="form-label">Antena satelital</label>
+            <input type="number" name="satellite_dish" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">LNB</label>
+            <input type="number" name="lnb" class="form-control" id="inputCity">
+        </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-outline-dark">Guardar</button>
+        </div>
+    </form>
+{% endblock %}

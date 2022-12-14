@@ -7,23 +7,42 @@ def _code_entry(code, type_works_id):
     db, c = get_db()
     query = 'SELECT code FROM codes WHERE code = %s'
     c.execute(query, [code])
-    
-    if c.fetchone() is None:
-        query = 'INSERT INTO codes(code, type_works_id, technical_id) VALUES (%s, %s, %s)'
-        c.execute(query,[code, type_works_id, g.user['id']])
+    error = False
+    message = c.fetchone()
+    #si no tiene codigo lo registramos y comprobamos si es un retiro, ingresamos el codigo a la base de datos
+    if message is None:
+        query = 'INSERT INTO codes(code,technical_id) VALUES (%s, %s)'
+        c.execute(query,[code, g.user['id']])
         db.commit()
+        if int(type_works_id) == 13:
+            error = True
+            message = 'Nuevo codigo registrado, ingrese nueva(s) orden(es) y equipos retirados'
+        else:
+            message = 'Nuevo codigo registrado, ingrese nueva(s) orden(es) de trabajo'
+    else:
+        message = 'Codigo registrado'
     
-    if int(type_works_id) == 13:
-        return 'Nuevo codigo registrado, ingrese nueva(s) orden(es) y equipos retirados', True
-    return 'Nuevo codigo registrado, ingrese nueva(s) orden(es) de trabajo', False
-
+    #traemos el codigo registrado por el usuario
+    query = 'SELECT id FROM codes WHERE code = %s AND technical_id = %s ORDER BY id DESC LIMIT 1;'
+    c.execute(query, [code, g.user['id']])
+    session['code'] = c.fetchone()
+    code_id =session.get("code")
+    
+    #ingresamos el tipo de trabajo a la base de datos
+    query = 'INSERT INTO code_type_works(code_id, type_works_id) VALUES (%s, %s)'
+    c.execute(query, [code_id['id'], type_works_id])
+    db.commit()
+    
+    
+    
+    return message, error
+    
 #manejador de las funciones
 def code_entry():
     json = dict()
     code = int(request.form['new_code'])
     type_works_id = int(request.form['type_works_id'])
     
-    session['code'] = code
     session['type_works_id'] = type_works_id
     
     json['code'] = code

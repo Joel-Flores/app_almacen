@@ -3,11 +3,7 @@ from app.db import get_db
 
 #extraer informacion del formulario de ordenes
 def form_works():
-    db, c = get_db()
-    query = 'SELECT id FROM codes WHERE code = %s'
-    c.execute(query,[session.get('code')])
-    session['code'] = c.fetchone()
-    
+
     try:
         form = dict()
         order = list()
@@ -52,10 +48,6 @@ def form_works():
         if order == [] and serial == []:
             error = 'no se lleno todos los datos necesarios!'
             return error
-        
-        if session.get('type_works_id') == 12 and serial == [1]:
-            form['orders'] = order
-            form['serials'] = None
         
         else:
             form['orders'] = order
@@ -139,10 +131,7 @@ def works_form():
     
     error = confirm_order_(form['orders'])
     if error is None:
-        if form['serials'] is not None:
-            message = update_work(form)
-        else:
-            message = update_work_order(form['orders'])
+        message = update_work(form)
         return message
     
     flash(error)

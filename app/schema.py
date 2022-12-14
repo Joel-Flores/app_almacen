@@ -3,6 +3,7 @@ instrutions = [
     "DROP TABLE IF EXISTS technical_material;",
     "DROP TABLE IF EXISTS technical_serial;",
     "DROP TABLE IF EXISTS serials_tech;",
+    "DROP TABLE IF EXISTS code_type_works;",
     "DROP TABLE IF EXISTS code_works;",
     "DROP TABLE IF EXISTS staff;",
     "DROP TABLE IF EXISTS work_orders;",
@@ -97,8 +98,7 @@ instrutions = [
     """,
     """CREATE TABLE codes(
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        code INT NOT NULL,
-        type_works_id INT NOT NULL,
+        code BIGINT NOT NULL,
         technical_id INT NOT NULL,
         created_in TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
@@ -111,7 +111,7 @@ instrutions = [
     """,
     """CREATE TABLE work_orders(
         id BIGINT PRIMARY KEY AUTO_INCREMENT,
-        work_order INT NOT NULL,
+        work_order BIGINT NOT NULL,
         serials_id INT NOT NULL,
         materials_id INT NOT NULL,
         code_id BIGINT NOT NULL,
@@ -128,6 +128,13 @@ instrutions = [
         code_id BIGINT NOT NULL,
         work_orders_id BIGINT NOT NULL,
         user_id INT NOT NULL,
+        created_in TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );
+    """,
+    """CREATE TABLE code_type_works(
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        code_id BIGINT NOT NULL,
+        type_works_id INT NOT NULL,
         created_in TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
     """,
@@ -184,11 +191,6 @@ instrutions = [
     """,
     """ALTER TABLE codes
         ADD CONSTRAINT 
-        codes_type_works_id_type_works_id FOREIGN KEY(type_works_id)
-        REFERENCES type_works(id);
-    """,
-    """ALTER TABLE codes
-        ADD CONSTRAINT 
         codes_technical_id_user_id FOREIGN KEY(technical_id)
         REFERENCES user(id);
     """,
@@ -231,5 +233,15 @@ instrutions = [
         ADD CONSTRAINT
         serials_tech_work_orders_id_work_orders_id FOREIGN KEY(work_orders_id)
         REFERENCES work_orders(id);
+    """,
+    """ALTER TABLE code_type_works
+        ADD CONSTRAINT
+        code_type_works_code_id_code_id FOREIGN KEY(code_id)
+        REFERENCES codes(id);
+    """,
+    """ALTER TABLE code_type_works
+        ADD CONSTRAINT
+        code_type_works_type_works_id_type_works_id FOREIGN KEY(type_works_id)
+        REFERENCES type_works(id);
     """
 ]

@@ -54,7 +54,15 @@ def data_equipments(user_id):
 def data_serials(user_id):
     db, c = get_db()
     
-    query = 'SELECT id , code FROM codes WHERE technical_id = %s AND type_works_id = 12 ORDER BY id desc LIMIT 5;'
+    query = '''SELECT c.id, c.code 
+		FROM code_type_works AS ct
+        INNER JOIN codes AS c
+        ON c.id = ct.code_id
+        INNER JOIN type_works AS t
+        ON t.id = ct.type_works_id
+        WHERE c.technical_id = %s AND t.id = 12
+        ORDER BY c.id DESC LIMIT 5;
+    '''
     c.execute(query, [user_id])
     session['code_for_retired'] = c.fetchall()
     

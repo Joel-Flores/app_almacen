@@ -8,14 +8,14 @@
     <main class="container-fluid row">
         <section class="col">
             {% block section %}
-            {% include 'tech/input_code.html' %}
-            {% include 'tech/code_list.html' %}
-            {% include 'tech/retired_claim_team.html'%}
+            {% include 'tech/index/input_code.html' %}
+            {% include 'tech/index/code_list.html' %}
+            {% include 'tech/index/retired_claim_team.html'%}
             {% endblock %}
         </section>
         <section class="col-xs-12 col-sm-4 col-lg-auto">
-            {% include 'tech/materials_tech.html' %}
-            {% include 'tech/equipment_tech.html' %}
+            {% include 'tech/index/materials_tech.html' %}
+            {% include 'tech/index/equipment_tech.html' %}
         </section>
     </main>
 {% endblock %}
