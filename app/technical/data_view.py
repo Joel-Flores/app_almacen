@@ -16,7 +16,7 @@ def code_list(json):
     c.execute(query, [user])
     ids = c.fetchall()
     
-    query = '''SELECT c.code, t.type_work, ct.created_in, COUNT(*) AS ots
+    query = '''SELECT ct.id, c.code, t.type_work, ct.created_in, COUNT(*) AS ots
 		FROM work_orders AS w
         LEFT JOIN codes AS c
         ON c.id = w.code_id

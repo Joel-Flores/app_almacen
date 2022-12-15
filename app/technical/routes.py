@@ -9,6 +9,7 @@ from .materials_form import materials_form
 from .retired_claim_team import retired_claim_team
 from .updt_serial_tech import updt_serial_tech
 from .removal_order import removal_order
+from .details_code import details_code
 
 #importacion de frameworks
 from flask import render_template, redirect, url_for, flash, g, session
@@ -81,3 +82,10 @@ def removal_orders():
     message = removal_order()
     flash(message)
     return render_template('tech/withdrawal_record/complete_materials_the_code.html')
+
+#detalles de los codigos ejecutados
+@tech.route('/details/<int:id>')
+def details(id):
+    
+    json = details_code(id)
+    return render_template('tech/details_codes/details_code.html', json = json)
