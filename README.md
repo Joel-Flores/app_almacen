@@ -11,4 +11,25 @@ el blueprint de technical es la perte de el tecnico pueda registar sus codigos e
     asi mismo la parte del material se sumara a tu material que tienes asignado
 
 el blueprint de store es para el manejador de el almacen en general, el usuario de almacen registra los equipos,
-    los asigna al tecnico, descarga el material, crear nuevos usuarios para tecnicos, el administrador en si 
+    los asigna al tecnico, descarga el material, crear nuevos usuarios para tecnicos, el administrador en si
+
+para iniciar la aplicacion debes aceder a la app con la siguiente configuracion
+
+-inicias las dependencias de la aplicacion 
+    esta corre con python 3.8 y pip3
+    instalas las dependencias con
+    - pip install -r requierement.txt
+    
+-configuramos flask para un buen inicio
+    export FLASK_APP='main.py' es el archivo principal de la app
+    export FLASK_SECRET_KEY='' -> ingresas una llave maestra
+    export FLASK_DATABASE_HOST='' -> el puerto de ingreso a la base de datos: localhost en caso de que se ejecute en tu computadora
+    export FLASK_DATABASE_PASSWORD='' el password de el usuario de mysql
+    export FLASK_DATABASE_USER='' el usuario de mysql
+    export FLASK_DATABASE='app_store' nombre de la base de datos, esta esta por defecto app_store
+
+para iniciar la base de datos con los datos de prueba
+    flask init-db
+
+una vez iniciado la base de datos inicias la aplicacion
+    flask run
